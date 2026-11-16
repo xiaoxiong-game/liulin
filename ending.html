@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>柳林旧案 · 结局</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+body { background: #111316; color: #e6e1d6; min-height: 100vh; }
+.end { max-width: 640px; margin: 0 auto; padding: 10vh 22px 60px; }
+.kind { color: #9a958a; letter-spacing: 4px; font-size: 14px; }
+h1 { font-family: "KaiTi", "STKaiti", "楷体", serif; font-weight: 400; font-size: 44px; letter-spacing: 8px; margin: 6px 0 26px; }
+.text p { margin: 0 0 12px; line-height: 2; font-size: 16px; }
+.last { margin-top: 30px; font-family: "KaiTi", "STKaiti", "楷体", serif; font-size: 19px; color: #c9b88f; }
+.btns { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px; }
+.btns a, .btns button { background: #e6e1d6; color: #111; border: 0; border-radius: 6px; padding: 9px 20px; text-decoration: none; cursor: pointer; font-size: 15px; }
+.btns .ghost { background: transparent; color: #9a958a; border: 1px solid #44464c; }
+.more { margin-top: 30px; color: #7c786f; font-size: 13px; line-height: 1.8; }
+/* 2026-11-15：作者区——《河灯秘事》小卡＋小红书小卡并排（手机上下排） */
+.author { margin-top: 48px; }
+.author .sep { display: flex; align-items: center; gap: 14px; color: #6f6b62; font-size: 13px; letter-spacing: 6px; margin-bottom: 20px; }
+.author .sep::before, .author .sep::after { content: ""; flex: 1; height: 1px; background: #2c2e33; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.mini { display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 8px; background: rgba(255, 255, 255, .04); border: 1px solid #23262c; text-decoration: none; color: inherit; min-width: 0; }
+a.mini:hover { border-color: #b08a5a; }
+.mini img { flex: none; width: 76px; height: 76px; border-radius: 6px; object-fit: cover; }
+.mini .qr { background: #fff; padding: 4px; box-sizing: content-box; width: 72px; height: 72px; }
+.mini .t { min-width: 0; font-size: 13px; color: #9a958a; line-height: 1.7; }
+.mini .t b { display: block; color: #efe6d2; font-size: 15px; font-weight: 400; }
+.mini .t .q { display: block; font-family: "KaiTi", "STKaiti", "楷体", serif; color: #d8cdb4; font-size: 14px; }
+.mini .go { display: inline-block; white-space: nowrap; color: #d9b07a; }
+.mini .id { font-family: Consolas, Menlo, monospace; color: #e7e3da; }
+.mini button { margin-left: 6px; padding: 0 8px; border: 1px solid #6f6b62; border-radius: 4px; background: transparent; color: #e7e3da; font-size: 12px; cursor: pointer; }
+.author .fine { margin-top: 18px; color: #6f6b62; font-size: 12px; line-height: 1.8; }
+@media (max-width: 600px) { .duo { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="end" id="app"></main>
+<script src="js/core.js"></script>
+<script src="js/data.js"></script>
+<script src="js/data2.js"></script>
+<script src="js/data3.js"></script>
+<script src="js/data4.js"></script>
+<script>
+(function () {
+  const kind = ['true', 'normal', 'bad'].includes(location.hash.slice(1)) ? location.hash.slice(1) : (BM.state.ending || 'normal');
+  const e = BM_DATA.endings[kind];
+  document.title = '柳林旧案 · ' + e.name + '《' + e.title + '》';
+  const more = {
+    bad: '',  // 用户 2026-11-12：坏结局、普通结局底下的提示句都去掉，只留真结局那句
+    normal: '',
+    true: '你看清了那个雨夜。'
+  }[kind];
+  document.getElementById('app').innerHTML = '<div class="kind">' + e.name + '</div><h1>' + BM.esc(e.title) + '</h1><div class="text">'
+    + e.text.split('\n').map(p => p ? '<p>' + BM.kw(BM.esc(p)) + '</p>' : '<p>&nbsp;</p>').join('') + '</div>' + (e.last ? '<div class="last">' + BM.esc(e.last).replace(/\n/g, '<br>') + '</div>' : '')
+    + (more ? '<p class="more">' + BM.esc(more) + '</p>' : '')
+    + '<div class="btns">' + (kind === 'true' ? '<button type="button" id="replay">回到 17:10 再说一次</button>' : '') + '<a class="ghost" href="index.html" id="back">回到许禾的电脑</a><button class="ghost" type="button" id="reset">重新开始</button></div>'
+    + '<section class="author"><div class="sep">感谢游玩</div><div class="duo">'
+    + '<a class="mini" id="hdCard" href="https://miyeji.cn/games/he-deng-mi-shi" target="_blank" rel="noopener"><img src="img/hedeng-thumb.jpg" alt=""><div class="t"><b>《河灯秘事》</b><span class="q">“这几天别喊我名字，打字也别打。”</span>小熊饼干的上一部作品<br><span class="go">去玩 ↗</span></div></a>'
+    + '<div class="mini"><img class="qr" src="img/author-xhs-qr.png" alt="小熊饼干的小红书二维码"><div class="t"><b>关注小熊饼干 不迷路</b>上线新作第一时间开玩<br>小红书号 <span class="id" id="xhsId">5290696522</span><button type="button" id="xhsCopy">复制</button></div></div>'
+    + '</div><p class="fine">故事纯属虚构 · 创作者/开发者：小熊饼干，游戏中的地名、人物、机构和案件均为虚构，与现实无关，如有雷同，切勿当真。</p></section>';
+  BM.markRead('end_seen'); if (BM.jcyCheck) BM.jcyCheck();
+    const replay = document.getElementById('replay');
+  if (replay) replay.addEventListener('click', () => {
+    BM.clearInterview();
+    if (BM.cond('notice')) { BM.set('called'); location.href = 'call.html#/call'; }
+    else location.href = 'index.html';
+  });
+  if (kind === 'normal') document.getElementById('back').addEventListener('click', () => { BM.markRead('end_back_normal'); BM.markRead('n_jcyLaw'); });  // 普通结局：回到桌面后，澜江检察推送普法文章（桌面的新消息提示会弹出来）
+  document.getElementById('reset').addEventListener('click', () => { if (confirm('清除全部进度，从头开始？')) { BM.reset(); location.href = 'index.html'; } });
+  { const cp = document.getElementById('xhsCopy'); let tm = 0; if (cp) cp.addEventListener('click', async () => { const id = document.getElementById('xhsId').textContent.trim(); let ok = false; try { await navigator.clipboard.writeText(id); ok = true; } catch (err) { const t = document.createElement('textarea'); t.value = id; t.setAttribute('readonly', ''); t.style.cssText = 'position:fixed;top:0;left:0;opacity:0'; document.body.appendChild(t); t.select(); try { ok = document.execCommand('copy'); } catch (e2) { ok = false; } t.remove(); } cp.textContent = ok ? '已复制' : '长按号码复制'; clearTimeout(tm); tm = setTimeout(() => { cp.textContent = '复制'; }, 2400); }); }  // 小红书号一键复制
+})();
+</script>
+</body>
+</html>
